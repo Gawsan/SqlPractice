@@ -1,0 +1,2 @@
+# SqlPractice
+t-sql practice 
