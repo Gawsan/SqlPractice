@@ -1,4 +1,4 @@
- create trigger test
+create trigger test
 --view or table name--
 on emp
 --we can use for ,instead of and after 
@@ -10,19 +10,19 @@ begin
 end
 
 create table Account(
-id int not null identity(1,1),
+id int ,
 accountNo int primary key,
 balance real,
 A_date date)
 
-insert into Account(accountNo,balance,A_date) values(1001,250000,'2021-04-21'),
-(1002,75000,'2021-04-21'),(1003,70000,'2021-04-21')
+insert into Account values(1,1001,250000,'2021-04-21'),
+(2,1002,75000,'2021-04-21'),(3,1003,70000,'2021-04-21')
 
 create table AccountLog(
-id int not null identity(1,1),
+
 accountNo int,
+T_date date,
 balance real,
-date date,
 FOREIGN KEY (accountNo) REFERENCES Account(accountNo))
 
 
@@ -34,16 +34,9 @@ begin
 declare @acno int,@balance real
 select @acno=accountNo,@balance=balance
 from inserted
-insert into AccountLog(accountNo,balance,date)values(@acno,@balance,getdate())
+insert into AccountLog(accountNo,balance,T_date)values(@acno,@balance,getdate())
 end
 
-insert into Account(accountNo,balance,A_date) values(1004,250000,'2021-04-21')
-
---instead of key word doesen't change the base table --
-
-
-
-
-
+insert into Account values(1,1007,250000,'2021-04-21')
 
 
