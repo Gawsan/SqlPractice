@@ -141,4 +141,28 @@ Constraint Fk_Employee_Department foreign key (dno) references department(dno))
 Alter table Department
 Add constraint Fk_Department_Employee foreign key(mgrnic) references Employee(Nic)
 
+--check salary trigger--
+
+create trigger CheckSalary
+on Employee
+for insert,update
+as
+begin
+declare @dno int,@salary real,@mgrsal real
+select @dno=dno,@salary=salary from inserted 
+select @mgrsal=e.salary from employee e,Department d where d.dno=e.dno and d.mgrnic=e.nic
+if @salary>@mgrsal
+begin
+print 'Salary exceed from managers salary'
+rollback transaction
+end
+end
+insert into employee(nic,name,salary) values('9811222257v','gawsan',75000)
+insert into department (dno,dname,mgrnic) values(1111,'Admin','9811222257v')
+
+insert into employee values('9811222427v','danu',65000,1111)
+
+--check the trigger--
+insert into employee values('9811222418v','Ak',85000,1111)
+
 
