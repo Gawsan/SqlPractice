@@ -69,9 +69,6 @@ print @sal
 
 
 
-
-
-
 select * from dept
 select * from emp
 
